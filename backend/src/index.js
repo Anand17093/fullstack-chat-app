@@ -26,7 +26,7 @@ app.use(cookieParser()); // Lets your app understand cookies sent by users
 
 app.use("/api/auth",authRoutes); // Routes related to authentication: login, signup, logout
 app.use("/api/messages",messageRoutes); // Routes related to sending or receiving messages
-if(process.env.NODE_ENV==="production"){
+if(process.env.NODE_ENV=="production"){
   app.use(express.static(path.join(__dirname,"../frontend/dist")));
 
   app.get("*",(req,res)=>{
