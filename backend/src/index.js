@@ -111,14 +111,23 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// ✅ Fix: properly close the production check
+// // ✅ Fix: properly close the production check
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+//   app.get(/^\/(?!api).*/, (req, res) => {
+//     return res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+//   });
+// } // <-- THIS was missing
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
   app.get(/^\/(?!api).*/, (req, res) => {
-    return res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
   });
-} // <-- THIS was missing
+}
+
 
 app.use((req, res, next) => {
   res.status(404).json({ error: "Not Found" });
