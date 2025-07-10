@@ -40,15 +40,26 @@ app.use(cookieParser()); // Lets your app understand cookies sent by users
 
 app.use("/api/auth",authRoutes); // Routes related to authentication: login, signup, logout
 app.use("/api/messages",messageRoutes); // Routes related to sending or receiving messages
-if(process.env.NODE_ENV==="production"){
-  app.use(express.static(path.join(__dirname,"../frontend/dist")));
+// if(process.env.NODE_ENV==="production"){
+//   app.use(express.static(path.join(__dirname,"../frontend/dist")));
 
-  app.get("*",(req,res)=>{
-    res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
+//   app.get("*",(req,res)=>{
+//     res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
      
-  })
+//   })
    
+// }
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("*", (req, res) => {
+    return res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html")); // ✅ Add `return`
+  });
 }
+
+
+
 app.use((req, res, next) => {
   res.status(404).json({ error: "Not Found" });
 });
