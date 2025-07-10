@@ -53,10 +53,10 @@ app.use("/api/messages",messageRoutes); // Routes related to sending or receivin
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
-    return res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html")); // ✅ Add `return`
-  });
-}
+  app.get(/^\/(?!api).*/, (req, res) => {
+  return res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+});
+
 
 
 
