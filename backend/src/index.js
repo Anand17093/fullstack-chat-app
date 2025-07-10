@@ -4,6 +4,13 @@ import cookieParser from "cookie-parser"
 import cors from "cors";
 import path from "path";
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
 
 import authRoutes from "./routes/auth.route.js";
 import {connectDB} from "./lib/db.js";
@@ -13,7 +20,7 @@ import {app,server} from "./lib/socket.js";
 dotenv.config();
 // const app = express(); //Start the web server
 const PORT = process.env.PORT //Pick the port number from env
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 app.use(cors({
   origin: "http://localhost:5173",
