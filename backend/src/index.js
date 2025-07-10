@@ -22,6 +22,13 @@ dotenv.config();
 const PORT = process.env.PORT //Pick the port number from env
 // const __dirname = path.resolve();
 
+
+app.use((req, res, next) => {
+  console.log("🚨 Incoming request path:", req.path);
+  next();
+});
+
+
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true,
@@ -46,6 +53,10 @@ app.use((req, res, next) => {
   res.status(404).json({ error: "Not Found" });
 });
 
+app.use((err, req, res, next) => {
+  console.error("🔥 Express Error:", err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 
 server.listen(PORT,()=>{
