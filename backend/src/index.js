@@ -138,7 +138,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-server.listen(PORT, () => {
+// server.listen(PORT, () => {
+//   console.log("Server is running");
+//   connectDB();
+// });
+
+server.listen(PORT, '0.0.0.0', () => {
   console.log("Server is running");
   connectDB();
 });
